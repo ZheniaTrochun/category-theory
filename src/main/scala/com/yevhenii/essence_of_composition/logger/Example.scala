@@ -12,9 +12,13 @@ object Example {
     val `f.g` = f.compose(g)
 
     val (res, msg) = `g.f`(true)
-    val (res1, msg1) = `f.g`(true)
+    val (resReverse, msgReverse) = `f.g`(true)
 
-    println(s"$msg; result = $res")
-    println(s"$msg1; result = $res1")
+    println("g - identity; f - not operator")
+    println(s"g after f: $msg; result = $res")
+    println(s"f after g: $msgReverse; result = $resReverse")
+
+    assert((resReverse, msgReverse) == g.composeReverse(f)(true))
+    assert((res, msg) == f.composeReverse(g)(true))
   }
 }
