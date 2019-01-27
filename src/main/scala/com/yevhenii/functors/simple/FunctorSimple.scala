@@ -4,7 +4,7 @@ trait Functor[+A] {
   def map[B](f: A => B): Functor[B]
 }
 
-trait Maybe[A] extends Functor[A] {
+trait Maybe[+A] extends Functor[A] {
   override def map[B](f: A => B): Functor[B] = this match {
     case MNothing => MNothing
     case Just(x) => Just(f(x))
