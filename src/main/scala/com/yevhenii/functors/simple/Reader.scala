@@ -1,7 +1,7 @@
 package com.yevhenii.functors.simple
 
-trait FunctorF[A, B] extends (A => B) {
-  def map[C](f: B => C): FunctorF[B, C]
+trait FunctorF[A, B] {
+  def map[C](f: B => C): FunctorF[A, C]
 }
 
 case class Reader[A, B](log: String, f: A => B) extends FunctorF[A, B] {
@@ -19,7 +19,7 @@ case class Reader[A, B](log: String, f: A => B) extends FunctorF[A, B] {
       f compose g.f
     )
 
-  def map[C](g: B => C): Reader[A, C] =
+  override def map[C](g: B => C): Reader[A, C] =
     Reader(log, g compose f)
 
   private def composeLog(log1: String, log2: String): String = s"$log1 -> $log2"
